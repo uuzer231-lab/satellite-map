@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя карта со спутниковым снимком</title>
+    <!-- Подключаем стили Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <!-- Подключаем скрипт Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // 1. Инициализируем карту и задаем начальный центр и зум
+        var map = L.map('map').setView([50.4501, 30.5234], 13); // Пример: Киев
+
+        // 2. Добавляем стандартную подложку (например, OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // 3. Добавляем свой спутниковый снимок
+        var imageUrl = 'path_to_your_satellite_image.jpg'; // Путь к вашему файлу
+        var imageBounds = [
+            [50.47, 30.50], // Северо-западный угол [широта, долгота]
+            [50.43, 30.55]  // Юго-восточный угол [широта, долгота]
+        ];
+
+        // Накладываем снимок на карту
+        L.imageOverlay(imageUrl, imageBounds, {
+            opacity: 0.8 // Прозрачность снимка
+        }).addTo(map);
+    </script>
+
+</body>
+</html>
